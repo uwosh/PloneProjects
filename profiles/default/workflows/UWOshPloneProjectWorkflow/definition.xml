@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="UWOshPloneProjectWorkflow"
+             title="UWOshPloneProjectWorkflow"
+             state_variable="review_state"
+             initial_state="private">
+ <permission>Access contents information</permission>
+ <permission>List folder contents</permission>
+ <permission>Modify portal content</permission>
+ <permission>Delete objects</permission>
+ <permission>View</permission>
+ <permission>Add portal content</permission>
+ <state state_id="private"
+        title="private">
+  <exit-transition transition_id="submit_project"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content"
+                  acquired="False">
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Member</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="project_accepted"
+        title="project_accepted">
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Member</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Anonymous</permission-role>
+   <permission-role>Member</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="project_rejected"
+        title="project_rejected">
+  <exit-transition transition_id="resubmit_project"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="project_submitted"
+        title="project_submitted">
+  <exit-transition transition_id="accept_project"/>
+  <exit-transition transition_id="reject_project"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+  <permission-map name="View"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>UWOshPloneDeveloper</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="accept_project"
+             title="accept_project"
+             new_state="project_accepted"
+             trigger="USER"
+             before_script=""
+             after_script="">
+  <action url="" category="workflow">accept_project</action>
+  <guard>
+    <guard-role>UWOshPloneDeveloper</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="reject_project"
+             title="reject_project"
+             new_state="project_rejected"
+             trigger="USER"
+             before_script=""
+             after_script="">
+  <action url="" category="workflow">reject_project</action>
+  <guard>
+    <guard-role>UWOshPloneDeveloper</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="resubmit_project"
+             title="resubmit_project"
+             new_state="project_submitted"
+             trigger="USER"
+             before_script=""
+             after_script="">
+  <action url="" category="workflow">resubmit_project</action>
+  <guard>
+    <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="submit_project"
+             title="submit_project"
+             new_state="project_submitted"
+             trigger="USER"
+             before_script=""
+             after_script="">
+  <action url="" category="workflow">submit_project</action>
+  <guard>
+    <guard-role>Owner</guard-role>
+  </guard>
+ </transition>
+ <variable variable_id="action" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The last transition</description>
+  <default>
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The ID of the user who performed the last transition</description>
+  <default>
+   <expression>user/getId</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Comments about the last transition</description>
+  <default>
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False"
+           for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Time of the last transition</description>
+  <default>
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <!-- We dont use workflow scripts any more, we use subscribers -->
+</dc-workflow>

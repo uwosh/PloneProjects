@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<import-steps>
+
+ 
+ <import-step 
+    id="uwosh_ploneprojects-Update-RoleMappings" 
+    handler="Products.uwosh_ploneprojects.setuphandlers.updateRoleMappings"
+    title="Update Workflow role mappings for uwosh_ploneprojects"
+    version="2008-05-08T12:55:18.813269">
+   <dependency step="uwosh_ploneprojects-QI-dependencies"/>
+   updates the workflow role mappings for uwosh_ploneprojects
+ </import-step>
+
+ <import-step 
+    id="uwosh_ploneprojects-postInstall" 
+    handler="Products.uwosh_ploneprojects.setuphandlers.postInstall"
+    title="manual coded post-install for uwosh_ploneprojects"
+    version="2008-05-08T12:55:18.813269">
+   <dependency step="uwosh_ploneprojects-QI-dependencies"/>
+   manual coded post-install for uwosh_ploneprojects
+ </import-step>
+
+<!-- ##code-section ADDITIONALSTEPS -->
+<!-- ##/code-section ADDITIONALSTEPS --> 
+
+</import-steps>
+ 

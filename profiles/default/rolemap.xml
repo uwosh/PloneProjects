@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<rolemap>
+  <roles>
+    <role name="UWOshPloneDeveloper"/>
+  </roles>
+  <permissions>
+  </permissions>
+</rolemap>
